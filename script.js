@@ -32,6 +32,26 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
+// FAQ Accordion
+document.querySelectorAll('.faq-question').forEach(button => {
+    button.addEventListener('click', () => {
+        const item = button.parentElement;
+        const isActive = item.classList.contains('active');
+
+        // Close all other items
+        document.querySelectorAll('.faq-item').forEach(other => {
+            other.classList.remove('active');
+            other.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+        });
+
+        // Toggle clicked item
+        if (!isActive) {
+            item.classList.add('active');
+            button.setAttribute('aria-expanded', 'true');
+        }
+    });
+});
+
 // Simple scroll-reveal animation
 const observerOptions = {
     threshold: 0.1,
@@ -49,7 +69,7 @@ const observer = new IntersectionObserver((entries) => {
 }, observerOptions);
 
 // Animate cards and sections on scroll
-document.querySelectorAll('.service-card, .why-card, .testimonial-card, .about-content, .about-image, .brx-content, .brx-logo-area, .contact-info, .contact-form-wrapper').forEach(el => {
+document.querySelectorAll('.service-card, .why-card, .testimonial-card, .tool-card, .blog-card, .about-content, .about-image, .brx-content, .brx-logo-area, .contact-info, .contact-form-wrapper, .faq-list, .cta-container').forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(30px)';
     el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
